@@ -14,6 +14,7 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>markdig markdown xaml wpf</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.0.1</Version>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="MarkdigXaml.licenseheader" />

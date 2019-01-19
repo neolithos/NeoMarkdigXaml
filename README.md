@@ -41,3 +41,7 @@ markdig.wpf implements **two** renderers, one for xaml-output and one for wpf-ob
 
 This implementation has only **one** renderer, that has a xaml-token-stream as output.
 This stream can written with framework implemented `XamlXmlWriter` or the `XamlObjectWriter`.
+
+## Links
+- Nuget [Neo.Markdig.Xaml](https://www.nuget.org/packages/Neo.Markdig.Xaml/)
+- [TecWare GmbH](https://www.tecware-gmbh.de/)

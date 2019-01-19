@@ -34,3 +34,10 @@ Additionally, the following extensions are supported:
 - AutoLinks
 - Tables
 - Extra emphasis
+
+## Difference to [markdig.wpf](https://github.com/Kryptos-FR/markdig.wpf)
+
+markdig.wpf implements **two** renderers, one for xaml-output and one for wpf-objects.
+
+This implementation has only **one** renderer, that has a xaml-token-stream as output.
+This stream can written with framework implemented `XamlXmlWriter` or the `XamlObjectWriter`.

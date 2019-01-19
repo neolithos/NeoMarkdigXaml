@@ -42,13 +42,7 @@ namespace Neo.Markdig.Xaml
 				pipeline = new MarkdownPipelineBuilder().Build();
 
 			using (var writer = new XamlObjectWriter(System.Windows.Markup.XamlReader.GetWpfSchemaContext()))
-			{
-				var renderer = new XamlMarkdownWriter(writer);
-				pipeline.Setup(renderer);
-
-				var document = Markdown.Parse(markdown, pipeline);
-				return (FlowDocument)renderer.Render(document);
-			}
+				return (FlowDocument)ToXaml(markdown, writer, pipeline);
 		} // func ToFlowDocument
 
 		/// <summary>Converts a Markdown string to XAML.</summary>
@@ -80,7 +74,10 @@ namespace Neo.Markdig.Xaml
 				throw new ArgumentNullException(nameof(writer));
 
 			using (var xamlWriter = new XamlXmlWriter(writer, System.Windows.Markup.XamlReader.GetWpfSchemaContext(), new XamlXmlWriterSettings() { CloseOutput = false }))
+			{
 				ToXaml(markdown, xamlWriter, pipeline);
+				xamlWriter.Flush();
+			}
 		} // func ToXaml
 
 
@@ -88,7 +85,7 @@ namespace Neo.Markdig.Xaml
 		/// <param name="markdown">A Markdown text.</param>
 		/// <param name="writer">The destination <see cref="TextWriter"/> that will receive the result of the conversion.</param>
 		/// <param name="pipeline">The pipeline used for the conversion.</param>
-		private static void ToXaml(string markdown, XamlXmlWriter writer, MarkdownPipeline pipeline = null)
+		private static object ToXaml(string markdown, XamlWriter writer, MarkdownPipeline pipeline = null)
 		{
 			if (writer == null)
 				throw new ArgumentNullException(nameof(writer));
@@ -98,9 +95,7 @@ namespace Neo.Markdig.Xaml
 			pipeline.Setup(renderer);
 
 			var document = Markdown.Parse(markdown, pipeline);
-			renderer.Render(document);
-
-			writer.Flush();
+			return renderer.Render(document);
 		} // proc ToXaml
 
 		public static MarkdownPipelineBuilder UseXamlSupportedExtensions(this MarkdownPipelineBuilder pipeline)

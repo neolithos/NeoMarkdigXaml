@@ -4,6 +4,16 @@
     <TargetFramework>net47</TargetFramework>
     <AssemblyName>Neo.Markdig.Xaml</AssemblyName>
     <RootNamespace>Neo.Markdig.Xaml</RootNamespace>
+    <Authors>Neolithos</Authors>
+    <Company>TecWare Gesellschaft für Softwareentwicklung mbH</Company>
+    <Description>Xaml/wpf extension for lunet-io/markdig.</Description>
+    <Copyright>TecWare Gesellschaft für Softwareentwicklung mbH</Copyright>
+    <PackageLicenseUrl>https://github.com/neolithos/NeoMarkdigXaml/blob/master/LICENSE.md</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/neolithos/NeoMarkdigXaml</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/neolithos/NeoMarkdigXaml.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>markdig markdown xaml wpf</PackageTags>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="MarkdigXaml.licenseheader" />

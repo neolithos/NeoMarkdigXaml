@@ -42,6 +42,23 @@ markdig.wpf implements **two** renderers, one for xaml-output and one for wpf-ob
 This implementation has only **one** renderer, that has a xaml-token-stream as output.
 This stream can written with framework implemented `XamlXmlWriter` or the `XamlObjectWriter`.
 
+Numbers:
+```
+Markdig.Wpf-toxaml  : 109ms
+Markdig.Xaml-toxaml : 850ms
+Markdig.Wpf-towpf   : 12.579ms
+Markdig.Xaml-towpf  : 6.882ms
+```
+
+If you want to create plain xaml text output, my library is a slower. The reason is, that my implementation 
+validates the output against the wpf-object-schema. That is one expensive step more, but it ensures a 
+valid wpf-xaml.
+
+The object creation should be always faster in Neo.Markdig.Xaml than the Markdig.Wpf approach, because
+Neo.Markdig.Xaml uses the internal wpf-object creation with all is caching and replay mechanism.
+
+Needs to prove: Neo.Markdig.Xaml should consume less memory on large documents in both cases.
+
 ## Links
 - Nuget [Neo.Markdig.Xaml](https://www.nuget.org/packages/Neo.Markdig.Xaml/)
 - [TecWare GmbH](https://www.tecware-gmbh.de/)

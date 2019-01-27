@@ -62,3 +62,7 @@ Needs to prove: Neo.Markdig.Xaml should consume less memory on large documents i
 ## Links
 - Nuget [Neo.Markdig.Xaml](https://www.nuget.org/packages/Neo.Markdig.Xaml/)
 - [TecWare GmbH](https://www.tecware-gmbh.de/)
+
+## What is missing
+
+A resource management for the result.

@@ -85,7 +85,7 @@ namespace Neo.Markdig.Xaml
 		/// <param name="markdown">A Markdown text.</param>
 		/// <param name="writer">The destination <see cref="TextWriter"/> that will receive the result of the conversion.</param>
 		/// <param name="pipeline">The pipeline used for the conversion.</param>
-		private static object ToXaml(string markdown, XamlWriter writer, MarkdownPipeline pipeline = null)
+		public static object ToXaml(string markdown, XamlWriter writer, MarkdownPipeline pipeline = null)
 		{
 			if (writer == null)
 				throw new ArgumentNullException(nameof(writer));

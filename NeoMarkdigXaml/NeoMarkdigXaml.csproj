@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
-    <TargetFramework>net47</TargetFramework>
+    <TargetFrameworks>net45;net47</TargetFrameworks>
     <AssemblyName>Neo.Markdig.Xaml</AssemblyName>
     <RootNamespace>Neo.Markdig.Xaml</RootNamespace>
     <Authors>Neolithos</Authors>
@@ -14,7 +14,8 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>markdig markdown xaml wpf</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
+    <FileVersion>1.0.2.0</FileVersion>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="MarkdigXaml.licenseheader" />

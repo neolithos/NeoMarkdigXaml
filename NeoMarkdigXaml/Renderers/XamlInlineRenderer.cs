@@ -88,9 +88,11 @@ namespace Neo.Markdig.Xaml.Renderers.Inlines
 		{
 			switch (span.DelimiterChar)
 			{
-				case '*': // bold
+				case '*' when span.IsDouble: // bold
+				case '_' when span.IsDouble: // bold
 					renderer.WriteStartObject(typeof(Bold));
 					return true;
+				case '*': // italic
 				case '_': // italic
 					renderer.WriteStartObject(typeof(Italic));
 					return true;

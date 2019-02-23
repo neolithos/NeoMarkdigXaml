@@ -56,7 +56,7 @@ namespace Neo.Markdig.Xaml.Renderers.Inlines
 		protected override void Write(XamlMarkdownWriter renderer, CodeInline code)
 		{
 			renderer.WriteStartObject(typeof(Span));
-			renderer.WriteStaticResourceMember(null, "xmarkdig:MarkdownXaml.CodeStyleKey");
+			renderer.WriteResourceMember(null, MarkdownXamlStyle.Code);
 
 			renderer.WriteStartItems(nameof(Span.Inlines), true);
 			renderer.WriteText(code.Content);
@@ -98,22 +98,22 @@ namespace Neo.Markdig.Xaml.Renderers.Inlines
 					return true;
 				case '~': // strike through
 					renderer.WriteStartObject(typeof(Span));
-					renderer.WriteStaticResourceMember(null, "xmarkdig:MarkdownXaml.StrikeThroughStyleKey");
+					renderer.WriteResourceMember(null, MarkdownXamlStyle.StrikeThrough);
 					return true;
 				case '^': // superscript, subscript
 					renderer.WriteStartObject(typeof(Span));
 					if (span.IsDouble)
-						renderer.WriteStaticResourceMember(null, "xmarkdig:MarkdownXaml.SuperscriptStyleKey");
+						renderer.WriteResourceMember(null, MarkdownXamlStyle.Superscript);
 					else
-						renderer.WriteStaticResourceMember(null, "xmarkdig:MarkdownXaml.SubscriptStyleKey");
+						renderer.WriteResourceMember(null, MarkdownXamlStyle.Subscript);
 					return true;
 				case '+': // underline
 					renderer.WriteStartObject(typeof(Span));
-					renderer.WriteStaticResourceMember(null, "xmarkdig:MarkdownXaml.InsertedStyleKey");
+					renderer.WriteResourceMember(null, MarkdownXamlStyle.Inserted);
 					return true;
 				case '=': // Marked
 					renderer.WriteStartObject(typeof(Span));
-					renderer.WriteStaticResourceMember(null, "xmarkdig:MarkdownXaml.MarkedStyleKey");
+					renderer.WriteResourceMember(null, MarkdownXamlStyle.Marked);
 					return true;
 				default:
 					return false;
@@ -211,7 +211,7 @@ namespace Neo.Markdig.Xaml.Renderers.Inlines
 					url = "#";
 
 				renderer.WriteStartObject(typeof(Image));
-				renderer.WriteStaticResourceMember(null, "xmarkdig:MarkdownXaml.ImageStyleKey");
+				renderer.WriteResourceMember(null, MarkdownXamlStyle.Image);
 				if (!String.IsNullOrEmpty(link.Title))
 					renderer.WriteMember(ToolTipService.ToolTipProperty, link.Title);
 				renderer.WriteMember(Image.SourceProperty, new Uri(url, UriKind.RelativeOrAbsolute));
@@ -232,7 +232,7 @@ namespace Neo.Markdig.Xaml.Renderers.Inlines
 				url = "#";
 
 			renderer.WriteStartObject(typeof(Hyperlink));
-			renderer.WriteStaticResourceMember(null, "xmarkdig:MarkdownXaml.HyperlinkStyleKey");
+			renderer.WriteResourceMember(null, MarkdownXaml.HyperlinkStyleKey);
 			//renderer.WriteMember(Hyperlink.CommandProperty, Commands.Hyperlink);
 			//renderer.WriteMember(Hyperlink.CommandParameterProperty, url);
 			renderer.WriteMember(Hyperlink.NavigateUriProperty, new Uri(url, UriKind.RelativeOrAbsolute));

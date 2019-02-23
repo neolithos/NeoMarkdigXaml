@@ -38,7 +38,7 @@ namespace Neo.Markdig.Xaml.Renderers.Extensions
         protected override void Write(XamlMarkdownWriter renderer, MdTable table)
         {
             renderer.WriteStartObject(typeof(WpfTable));
-            renderer.WriteStaticResourceMember(null, "xmarkdig:MarkdownXaml.TableStyleKey");
+            renderer.WriteResourceMember(null, MarkdownXamlStyle.Table);
             var t = new WpfTable();
             
             renderer.WriteStartItems(nameof(WpfTable.Columns));
@@ -63,14 +63,14 @@ namespace Neo.Markdig.Xaml.Renderers.Extensions
                 var row = (MdTableRow)c;
                 renderer.WriteStartObject(typeof(WpfTableRow));
                 if (row.IsHeader)
-                    renderer.WriteStaticResourceMember(null, "xmarkdig:MarkdownXaml.TableHeaderStyleKey");
+                    renderer.WriteResourceMember(null, MarkdownXamlStyle.TableHeader);
                 renderer.WriteStartItems(nameof(WpfTableRow.Cells));
 
                 for (var i = 0; i < row.Count; i++)
                 {
                     var cell = (MdTableCell)row[i];
                     renderer.WriteStartObject(typeof(WpfTableCell));
-                    renderer.WriteStaticResourceMember(null, "xmarkdig:MarkdownXaml.TableCellStyleKey");
+                    renderer.WriteResourceMember(null, MarkdownXamlStyle.TableCell);
 
                     if (cell.ColumnSpan > 1)
                         renderer.WriteMember(nameof(WpfTableCell.ColumnSpan), cell.ColumnSpan);

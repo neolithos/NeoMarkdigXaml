@@ -20,6 +20,8 @@
 #endregion
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows;
@@ -29,7 +31,6 @@ using Markdig.Helpers;
 using Markdig.Renderers;
 using Markdig.Syntax;
 using Markdig.Syntax.Inlines;
-using Neo.Markdig.Xaml.Renderers;
 using Neo.Markdig.Xaml.Renderers.Extensions;
 using Neo.Markdig.Xaml.Renderers.Inlines;
 
@@ -40,10 +41,44 @@ namespace Neo.Markdig.Xaml.Renderers
 	/// <summary>XAML token stream generator for a Markdown <see cref="MarkdownDocument"/> object.</summary>
 	public class XamlMarkdownWriter : RendererBase
     {
-        private readonly XamlWriter writer;
+		#region -- class StaticResourceKeyStoreInfo -----------------------------------
+
+		private sealed class StaticResourceKeyStoreInfo
+		{
+			public StaticResourceKeyStoreInfo(Type type, string prefix)
+			{
+				Type = type ?? throw new ArgumentNullException(nameof(type));
+				Prefix = prefix ?? throw new ArgumentNullException(nameof(prefix));
+			} // ctor
+
+			public Type Type { get; }
+			public string Prefix { get; }
+		} // class ResourceKeyStoreInfo
+
+		#endregion
+
+		#region -- struct StaticResourceKeyInfo ---------------------------------------
+
+		private struct StaticResourceKeyInfo
+		{
+			public StaticResourceKeyInfo(StaticResourceKeyStoreInfo keyStoreInfo, string memberName)
+			{
+				KeyStore = keyStoreInfo ?? throw new ArgumentNullException(nameof(keyStoreInfo));
+				MemberName = memberName ?? throw new ArgumentNullException(nameof(memberName));
+			} // ctor
+
+			public string MemberName { get; }
+			public StaticResourceKeyStoreInfo KeyStore { get; }
+		} // struct StaticResourceKeyInfo
+
+		#endregion
+
+		private readonly XamlWriter writer;
         private readonly Stack<XamlType> xamlTypes = new Stack<XamlType>();
 
-        private readonly XamlType runType;
+		private readonly Dictionary<ResourceKey, StaticResourceKeyInfo> staticResourceKeys = new Dictionary<ResourceKey, StaticResourceKeyInfo>();
+
+		private readonly XamlType runType;
         private readonly XamlMember runTextMember;
 
         private XamlMember currentContentMember = null; // start a _Items access before the next object
@@ -454,42 +489,133 @@ namespace Neo.Markdig.Xaml.Renderers
 
 		#region -- Resources ----------------------------------------------------------
 
-		public void WriteStaticResourceMember(XamlMember member, string value)
+		protected void RegisterResourceKeys(Type resourceKeyStoreType, string prefix)
+		{
+			var resourceKeyStore = new StaticResourceKeyStoreInfo(resourceKeyStoreType, prefix);
+			var itemsAdded = false;
+
+			// register resources
+			foreach (var pi in (from p in resourceKeyStoreType.GetRuntimeProperties() where p.CanRead && p.GetMethod.IsPublic && p.GetMethod.IsStatic && typeof(ResourceKey).IsAssignableFrom(p.PropertyType) select p))
+			{
+				var rk = (ResourceKey)pi.GetValue(null);
+				staticResourceKeys.Add(rk, new StaticResourceKeyInfo(resourceKeyStore, pi.Name));
+				itemsAdded = true;
+			}
+
+			// add name space
+			if (itemsAdded)
+				WriteNamespace("clr-namespace:" + resourceKeyStoreType.Assembly.GetName().Name + ";assembly=" + resourceKeyStoreType.Namespace, prefix);
+		} // proc RegisterResourceKeys
+
+		public void WriteResourceMember(XamlMember member, object value)
 		{
 			WriteStartMember(member ?? GetMember("Style"));
 			WriteStartObject(typeof(StaticResourceExtension));
 			WriteStartMember(XamlLanguage.PositionalParameters);
 
-			WriteStartObject(XamlLanguage.Static);
-			WriteStartMember(XamlLanguage.PositionalParameters);
-
-			writer.WriteValue(value);
-
-			WriteEndMember();
-			WriteEndObject();
-
+			WriteMemberValueCore(value);
 
 			WriteEndMember();
 			WriteEndObject();
 			WriteEndMember();
-		}
+		} // proc WriteResourceMember
 
-		//private void WriteStaticMember(XamlMember member, string value)
-		//{
-		//	nodes.Add(new XamlStartMember(member));
-		//	nodes.Add(new XamlStartObject(XamlLanguage.Static));
-		//	nodes.Add(new XamlStartMember(XamlLanguage.PositionalParameters));
+		protected virtual void WriteMemberValueCore(object value)
+		{
+			if (value is MarkdownXamlStyle style)
+				value = GetDefaultStyle(style);
 
-		//	nodes.Add(new XamlValue(value));
+			if (writer is XamlObjectWriter)
+				writer.WriteValue(value);
+			else if (!TryWriteResouceKey(value as ResourceKey))
+				writer.WriteValue(value);
+		} // proc WriteMemberValueCore
 
-		//	nodes.Add(new XamlEndMember());
-		//	nodes.Add(new XamlEndObject());
-		//	nodes.Add(new XamlEndMember());
-		//}
+		public bool TryWriteResouceKey(ResourceKey resourceKey)
+		{
+			if (resourceKey != null && staticResourceKeys.TryGetValue(resourceKey, out var info)) // known resource key
+			{
+				WriteStartObject(XamlLanguage.Static);
+				WriteStartMember(XamlLanguage.PositionalParameters);
+
+				writer.WriteValue(info.KeyStore.Prefix + ":" + info.KeyStore.Type.Name + "." + info.MemberName);
+
+				WriteEndMember();
+				WriteEndObject();
+
+				return true;
+			}
+			else
+				return false;
+		} // proc WriteResouceKey
+
+		public virtual object GetDefaultStyle(MarkdownXamlStyle style)
+		{
+			switch(style)
+			{
+				case MarkdownXamlStyle.Document:
+					return MarkdownXaml.DocumentStyleKey;
+				case MarkdownXamlStyle.Code:
+					return MarkdownXaml.CodeStyleKey;
+				case MarkdownXamlStyle.CodeBlock:
+					return MarkdownXaml.CodeBlockStyleKey;
+				case MarkdownXamlStyle.Heading1:
+					return MarkdownXaml.Heading1StyleKey;
+				case MarkdownXamlStyle.Heading2:
+					return MarkdownXaml.Heading2StyleKey;
+				case MarkdownXamlStyle.Heading3:
+					return MarkdownXaml.Heading3StyleKey;
+				case MarkdownXamlStyle.Heading4:
+					return MarkdownXaml.Heading4StyleKey;
+				case MarkdownXamlStyle.Heading5:
+					return MarkdownXaml.Heading5StyleKey;
+				case MarkdownXamlStyle.Heading6:
+					return MarkdownXaml.Heading6StyleKey;
+				case MarkdownXamlStyle.Image:
+					return MarkdownXaml.ImageStyleKey;
+				case MarkdownXamlStyle.Inserted:
+					return MarkdownXaml.InsertedStyleKey;
+				case MarkdownXamlStyle.Marked:
+					return MarkdownXaml.MarkedStyleKey;
+				case MarkdownXamlStyle.QuoteBlock:
+					return MarkdownXaml.QuoteBlockStyleKey;
+				case MarkdownXamlStyle.StrikeThrough:
+					return MarkdownXaml.StrikeThroughStyleKey;
+				case MarkdownXamlStyle.Subscript:
+					return MarkdownXaml.SubscriptStyleKey;
+				case MarkdownXamlStyle.Superscript:
+					return MarkdownXaml.SuperscriptStyleKey;
+				case MarkdownXamlStyle.Table:
+					return MarkdownXaml.TableStyleKey;
+				case MarkdownXamlStyle.TableCell:
+					return MarkdownXaml.TableCellStyleKey;
+				case MarkdownXamlStyle.TableHeader:
+					return MarkdownXaml.TableHeaderStyleKey;
+				case MarkdownXamlStyle.TaskList:
+					return MarkdownXaml.TaskListStyleKey;
+				case MarkdownXamlStyle.ThematicBreak:
+					return MarkdownXaml.ThematicBreakStyleKey;
+				case MarkdownXamlStyle.Hyperlink:
+					return MarkdownXaml.HyperlinkStyleKey;
+				default:
+					throw new ArgumentOutOfRangeException(nameof(style));
+			}
+		} // func GetDefaultStyle
 
 		#endregion
 
 		#region -- Render -------------------------------------------------------------
+
+		protected virtual void WriteNamespaces()
+		{
+			RegisterResourceKeys(typeof(MarkdownXaml), "xmarkdig");
+		} // proc WriteNamespaces
+
+		protected virtual void WriteResources()
+		{
+			//WriteStartItems(nameof(FlowDocument.Resources));
+			//WriteEndItems();
+		} // proc WriteResources
 
 		/// <summary>Render the markdown object in a XamlWriter.</summary>
 		/// <param name="markdownObject"></param>
@@ -500,15 +626,13 @@ namespace Neo.Markdig.Xaml.Renderers
             {
                 // emit namespaces
                 WriteNamespace("http://schemas.microsoft.com/winfx/2006/xaml", "x");
-                WriteNamespace("clr-namespace:Neo.Markdig.Xaml;assembly=Neo.Markdig.Xaml", "xmarkdig");
+				WriteNamespaces();
 
-                // start flow document
-                WriteStartObject(typeof(FlowDocument));
+				// start flow document
+				WriteStartObject(typeof(FlowDocument));
+				WriteResources();
 
-                //WriteStartItems(nameof(FlowDocument.Resources));
-                //WriteEndItems();
-
-                WriteStaticResourceMember(null, "xmarkdig:MarkdownXaml.DocumentStyleKey");
+				WriteResourceMember(null, MarkdownXamlStyle.Document);
 
                 WriteStartItems(nameof(FlowDocument.Blocks));
 

@@ -35,6 +35,12 @@ Additionally, the following extensions are supported:
 - Tables
 - Extra emphasis
 
+## Styles
+
+It is possible to replace the default resource set.
+
+Inherit from `XamlMarkdownWriter` and  override the method `GetDefaultStyle`.
+
 ## Difference to [markdig.wpf](https://github.com/Kryptos-FR/markdig.wpf)
 
 markdig.wpf implements **two** renderers, one for xaml-output and one for wpf-objects.
@@ -65,4 +71,4 @@ Needs to prove: Neo.Markdig.Xaml should consume less memory on large documents i
 
 ## What is missing
 
-A resource management for the result.
+Testing.

@@ -42,29 +42,29 @@ namespace Neo.Markdig.Xaml.Renderers
 
 	public class HeadingRenderer : XamlObjectRenderer<HeadingBlock>
 	{
-		private static string GetStyleKey(int level)
+		private static MarkdownXamlStyle GetStyleKey(int level)
 		{
 			switch (level)
 			{
 				case 1:
-					return "xmarkdig:MarkdownXaml.Heading1StyleKey";
+					return MarkdownXamlStyle.Heading1;
 				case 2:
-					return "xmarkdig:MarkdownXaml.Heading2StyleKey";
+					return MarkdownXamlStyle.Heading2;
 				case 3:
-					return "xmarkdig:MarkdownXaml.Heading3StyleKey";
+					return MarkdownXamlStyle.Heading3;
 				case 4:
-					return "xmarkdig:MarkdownXaml.Heading4StyleKey";
+					return MarkdownXamlStyle.Heading4;
 				case 5:
-					return "xmarkdig:MarkdownXaml.Heading5StyleKey";
+					return MarkdownXamlStyle.Heading5;
 				default:
-					return "xmarkdig:MarkdownXaml.Heading6StyleKey";
+					return MarkdownXamlStyle.Heading6;
 			}
 		} // func GetStyleKey
 
 		protected override void Write(XamlMarkdownWriter renderer, HeadingBlock headingBlock)
 		{
 			renderer.WriteStartObject(typeof(Paragraph));
-			renderer.WriteStaticResourceMember(null, GetStyleKey(headingBlock.Level));
+			renderer.WriteResourceMember(null, GetStyleKey(headingBlock.Level));
 			renderer.WriteItems(headingBlock);
 			renderer.WriteEndObject();
 		} // proc Write
@@ -79,7 +79,7 @@ namespace Neo.Markdig.Xaml.Renderers
 		protected override void Write(XamlMarkdownWriter renderer, CodeBlock obj)
 		{
 			renderer.WriteStartObject(typeof(Paragraph));
-			renderer.WriteStaticResourceMember(null, "xmarkdig:MarkdownXaml.CodeBlockStyleKey");
+			renderer.WriteResourceMember(null, MarkdownXamlStyle.CodeBlock);
 			//if (obj is FencedCodeBlock f)
 			//    f.Info;
 			renderer.WriteItems(obj, true);
@@ -130,7 +130,7 @@ namespace Neo.Markdig.Xaml.Renderers
 		protected override void Write(XamlMarkdownWriter renderer, QuoteBlock block)
 		{
 			renderer.WriteStartObject(typeof(Section));
-			renderer.WriteStaticResourceMember(null, "xmarkdig:MarkdownXaml.QuoteBlockStyleKey");
+			renderer.WriteResourceMember(null, MarkdownXamlStyle.QuoteBlock);
 
 			renderer.WriteItems(block);
 
@@ -147,7 +147,7 @@ namespace Neo.Markdig.Xaml.Renderers
 		protected override void Write(XamlMarkdownWriter renderer, ThematicBreakBlock obj)
 		{
 			renderer.WriteStartObject(typeof(Paragraph));
-			renderer.WriteStaticResourceMember(null, "xmarkdig:MarkdownXaml.ThematicBreakStyleKey");
+			renderer.WriteResourceMember(null, MarkdownXamlStyle.ThematicBreak);
 			renderer.WriteEndObject();
 
 			//var line = new System.Windows.Shapes.Line { X2 = 1 };

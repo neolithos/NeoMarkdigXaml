@@ -88,8 +88,8 @@ namespace Neo.Markdig.Xaml.Renderers.Inlines
 		{
 			switch (span.DelimiterChar)
 			{
-				case '*' when span.IsDouble: // bold
-				case '_' when span.IsDouble: // bold
+				case '*' when span.DelimiterCount == 2: // bold
+				case '_' when span.DelimiterCount == 2: // bold
 					renderer.WriteStartObject(typeof(Bold));
 					return true;
 				case '*': // italic
@@ -102,7 +102,7 @@ namespace Neo.Markdig.Xaml.Renderers.Inlines
 					return true;
 				case '^': // superscript, subscript
 					renderer.WriteStartObject(typeof(Span));
-					if (span.IsDouble)
+					if (span.DelimiterCount == 2)
 						renderer.WriteResourceMember(null, MarkdownXamlStyle.Superscript);
 					else
 						renderer.WriteResourceMember(null, MarkdownXamlStyle.Subscript);

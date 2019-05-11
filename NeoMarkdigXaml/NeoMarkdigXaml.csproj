@@ -21,7 +21,7 @@
     <None Remove="Themes\generic.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Markdig" Version="0.16.0" />
+    <PackageReference Include="Markdig" Version="0.17.0" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Themes\generic.xaml">

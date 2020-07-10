@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop" ToolsVersion="15.0">
   <PropertyGroup>
-    <TargetFrameworks>net45;net47</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.1;net47</TargetFrameworks>
     <AssemblyName>Neo.Markdig.Xaml</AssemblyName>
     <RootNamespace>Neo.Markdig.Xaml</RootNamespace>
     <Authors>Neolithos</Authors>
@@ -16,21 +16,9 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Version>1.0.5</Version>
     <FileVersion>1.0.2.0</FileVersion>
+    <useWpf>true</useWpf>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="Themes\generic.xaml" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Markdig" Version="0.17.1" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="Themes\generic.xaml">
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="WindowsBase" />
+    <PackageReference Include="Markdig" Version="0.20.0" />
   </ItemGroup>
 </Project>

@@ -14,11 +14,11 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>markdig markdown xaml wpf</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.6</Version>
-    <FileVersion>1.0.2.0</FileVersion>
+    <Version>1.0.7</Version>
+    <FileVersion>1.0.7.0</FileVersion>
     <useWpf>true</useWpf>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Markdig" Version="0.20.0" />
+    <PackageReference Include="Markdig" Version="0.21.1" />
   </ItemGroup>
 </Project>

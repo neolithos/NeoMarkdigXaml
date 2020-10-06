@@ -228,7 +228,9 @@ namespace Neo.Markdig.Xaml.Renderers.Inlines
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void WriteStartHyperlink(XamlMarkdownWriter renderer, string url, string linkTitle)
 		{
-			if (!Uri.IsWellFormedUriString(url, UriKind.RelativeOrAbsolute))
+			// check for valid url
+			if(!url.StartsWith("#")
+				&& !Uri.IsWellFormedUriString(url, UriKind.RelativeOrAbsolute))
 				url = "#";
 
 			renderer.WriteStartObject(typeof(Hyperlink));

@@ -19,6 +19,6 @@
     <useWpf>true</useWpf>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Markdig" Version="0.21.1" />
+    <PackageReference Include="Markdig" Version="0.22.0" />
   </ItemGroup>
 </Project>

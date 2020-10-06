@@ -36,6 +36,7 @@ namespace MarkdownWpfTest
 		{
 			InitializeComponent();
 
+			//var content = File.ReadAllText(@"..\..\Test\Issue-6.md");
 			var content = File.ReadAllText(@"..\..\..\..\Readme.md");
 			var doc = MarkdownXaml.ToFlowDocument(content,
 				new MarkdownPipelineBuilder()

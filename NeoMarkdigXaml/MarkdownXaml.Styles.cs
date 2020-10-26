@@ -54,7 +54,7 @@ namespace Neo.Markdig.Xaml
 		/// <summary>Resource Key for the QuoteBlockStyle.</summary>
 		QuoteBlock,
 		/// <summary>Resource Key for the StrikeThroughStyle.</summary>
-		StrikeThrough,  
+		StrikeThrough,
 		/// <summary>Resource Key for the SubscriptStyle.</summary>
 		Subscript,
 		/// <summary>Resource Key for the SuperscriptStyle.</summary>

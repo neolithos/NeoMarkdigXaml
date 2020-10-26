@@ -229,7 +229,7 @@ namespace Neo.Markdig.Xaml.Renderers.Inlines
 		internal static void WriteStartHyperlink(XamlMarkdownWriter renderer, string url, string linkTitle)
 		{
 			// check for valid url
-			if(!url.StartsWith("#")
+			if (!url.StartsWith("#")
 				&& !Uri.IsWellFormedUriString(url, UriKind.RelativeOrAbsolute))
 				url = "#";
 

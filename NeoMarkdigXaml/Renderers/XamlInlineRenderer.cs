@@ -42,7 +42,7 @@ namespace Neo.Markdig.Xaml.Renderers.Inlines
 				url = "mailto:" + url;
 
 			LinkInlineRenderer.WriteStartHyperlink(renderer, url, title);
-			renderer.WriteText(title);
+			renderer.WriteItems(title);
 			LinkInlineRenderer.WriteEndHyperlink(renderer);
 		} // proc Write
 	} // class AutolinkInlineRenderer

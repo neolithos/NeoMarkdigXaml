@@ -31,7 +31,7 @@ var xaml = MarkdownXaml.ToXaml(content,
 Supports standard features from Markdig.
 
 Additionally, the following extensions are supported:
-- AutoLinks
+- AutoLinks (such as <https://github.com>)
 - Tables
 - Extra emphasis
 

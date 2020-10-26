@@ -483,6 +483,17 @@ namespace Neo.Markdig.Xaml.Renderers
             WriteEndItems();
 		} // proc WriteItems
 
+		/// <summary>Write text as content in the current type.</summary>
+		/// <param name="text"></param>
+		/// <param name="preserveSpaces"></param>
+		public void WriteItems(string text, bool preserveSpaces = false)
+		{
+			var member = xamlTypes.Peek().ContentProperty ?? throw new ArgumentNullException(nameof(XamlType.ContentProperty));
+			WriteStartItems(member, preserveSpaces);
+			WriteText(text);
+			WriteEndItems();
+		}
+
 		private bool IsPendingText => textBuffer.Length > 0;
 
 		#endregion

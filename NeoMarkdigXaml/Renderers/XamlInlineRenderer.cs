@@ -25,6 +25,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Xaml;
+using Markdig.Renderers.Html;
 using Markdig.Syntax.Inlines;
 
 namespace Neo.Markdig.Xaml.Renderers.Inlines
@@ -214,7 +215,14 @@ namespace Neo.Markdig.Xaml.Renderers.Inlines
 				renderer.WriteResourceMember(null, MarkdownXamlStyle.Image);
 				if (!String.IsNullOrEmpty(link.Title))
 					renderer.WriteMember(ToolTipService.ToolTipProperty, link.Title);
-				renderer.WriteMember(Image.SourceProperty, new Uri(url, UriKind.RelativeOrAbsolute));
+				renderer.WriteMember(Image.SourceProperty, renderer.GetUri(new Uri(url, UriKind.RelativeOrAbsolute), false));
+
+				var attr = link.TryGetAttributes();
+				if (attr.TryGetPropertyInt32("width", out var width))
+					renderer.WriteMember(FrameworkElement.WidthProperty, width);
+				if (attr.TryGetPropertyInt32("height", out var height))
+					renderer.WriteMember(FrameworkElement.HeightProperty, height);
+				
 				renderer.WriteEndObject();
 			}
 			else
@@ -237,7 +245,7 @@ namespace Neo.Markdig.Xaml.Renderers.Inlines
 			renderer.WriteResourceMember(null, MarkdownXaml.HyperlinkStyleKey);
 			//renderer.WriteMember(Hyperlink.CommandProperty, Commands.Hyperlink);
 			//renderer.WriteMember(Hyperlink.CommandParameterProperty, url);
-			renderer.WriteMember(Hyperlink.NavigateUriProperty, new Uri(url, UriKind.RelativeOrAbsolute));
+			renderer.WriteMember(Hyperlink.NavigateUriProperty, renderer.GetUri(new Uri(url, UriKind.RelativeOrAbsolute)));
 			renderer.WriteMember(FrameworkContentElement.ToolTipProperty, String.IsNullOrEmpty(linkTitle) ? url : linkTitle);
 		} // proc WriteStartHyperlink
 

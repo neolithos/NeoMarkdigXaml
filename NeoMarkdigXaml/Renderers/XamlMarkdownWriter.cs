@@ -29,6 +29,7 @@ using System.Windows.Documents;
 using System.Xaml;
 using Markdig.Helpers;
 using Markdig.Renderers;
+using Markdig.Renderers.Html;
 using Markdig.Syntax;
 using Markdig.Syntax.Inlines;
 using Neo.Markdig.Xaml.Renderers.Extensions;
@@ -39,7 +40,7 @@ namespace Neo.Markdig.Xaml.Renderers
 	#region -- class XamlMarkdownWriter -----------------------------------------------
 
 	/// <summary>XAML token stream generator for a Markdown <see cref="MarkdownDocument"/> object.</summary>
-	public class XamlMarkdownWriter : RendererBase
+	public class XamlMarkdownWriter : RendererBase, System.Windows.Markup.IUriContext
 	{
 		#region -- class StaticResourceKeyStoreInfo -----------------------------------
 
@@ -616,9 +617,7 @@ namespace Neo.Markdig.Xaml.Renderers
 		#region -- Render -------------------------------------------------------------
 
 		protected virtual void WriteNamespaces()
-		{
-			RegisterResourceKeys(typeof(MarkdownXaml), "xmarkdig");
-		} // proc WriteNamespaces
+			=> RegisterResourceKeys(typeof(MarkdownXaml), "xmarkdig");
 
 		protected virtual void WriteResources()
 		{
@@ -659,6 +658,33 @@ namespace Neo.Markdig.Xaml.Renderers
 
 		#endregion
 
+		private object GetAbsoluteUri(Uri uri, bool enforceUri = true)
+		{
+			if (!enforceUri && uri.IsAbsoluteUri)
+			{
+				if (uri.Scheme == "file")
+					return uri.AbsolutePath;
+				else
+					return uri;
+			}
+			else
+				return uri;
+		} // func GetAbsoluteUri
+
+		public object GetUri(Uri uri, bool enforceUri = true)
+		{
+			if (uri == null)
+				return null;
+			else if (uri.IsAbsoluteUri)
+				return GetAbsoluteUri(uri, enforceUri);
+			else if (BaseUri != null)
+				return GetAbsoluteUri(new Uri(BaseUri, uri), enforceUri);
+			else
+				return uri;
+		} // func GetUri
+
+		/// <summary>Define a BaseUri for the uri</summary>
+		public Uri BaseUri { get; set; } = null;
 		/// <summary>Acces to current schema context.</summary>
 		public XamlSchemaContext SchemaContext => writer.SchemaContext;
 	} // class XamlMarkdownWriter
@@ -673,6 +699,42 @@ namespace Neo.Markdig.Xaml.Renderers
 		where TObject : MarkdownObject
 	{
 	} // class XamlObjectRenderer
+
+	#endregion
+
+	#region -- class Helper -----------------------------------------------------------
+
+	internal static class Helper
+	{
+		public static bool TryGetProperty(this HtmlAttributes attributes, string name, out string value)
+		{
+			if (attributes != null)
+			{
+				var properties = attributes.Properties;
+				for (var i = 0; i < properties.Count; i++)
+				{
+					if (properties[i].Key == name)
+					{
+						value = properties[i].Value;
+						return true;
+					}
+				}
+			}
+			value = null;
+			return false;
+		} // func TryGetProperty
+
+		public static bool TryGetPropertyInt32(this HtmlAttributes attributes, string name, out int value)
+		{
+			if (TryGetProperty(attributes, name, out var tmp) && Int32.TryParse(tmp, out value))
+				return true;
+			else
+			{
+				value = 0;
+				return false;
+			}
+		} // func TryGetPropertyInt32
+	} // class Helper
 
 	#endregion
 }

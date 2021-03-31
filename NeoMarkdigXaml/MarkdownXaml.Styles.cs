@@ -98,69 +98,70 @@ namespace Neo.Markdig.Xaml
 		#endregion
 
 		/// <summary>Resource Key for the DocumentStyle.</summary>
-		public static ResourceKey DocumentStyleKey { get; } = new StyleResourceKey(nameof(DocumentStyleKey));
+		internal static ResourceKey DocumentStyleKey { get; } = new StyleResourceKey(nameof(DocumentStyleKey));
 
 		/// <summary>Resource Key for the CodeStyle.</summary>
-		public static ResourceKey CodeStyleKey { get; } = new StyleResourceKey(nameof(CodeStyleKey));
+		internal static ResourceKey CodeStyleKey { get; } = new StyleResourceKey(nameof(CodeStyleKey));
 
 		/// <summary>Resource Key for the CodeBlockStyle.</summary>
-		public static ResourceKey CodeBlockStyleKey { get; } = new StyleResourceKey(nameof(CodeBlockStyleKey));
+		internal static ResourceKey CodeBlockStyleKey { get; } = new StyleResourceKey(nameof(CodeBlockStyleKey));
 
 		/// <summary>Resource Key for the Heading1Style.</summary>
-		public static ResourceKey Heading1StyleKey { get; } = new StyleResourceKey(nameof(Heading1StyleKey));
+		internal static ResourceKey Heading1StyleKey { get; } = new StyleResourceKey(nameof(Heading1StyleKey));
 
 		/// <summary>Resource Key for the Heading2Style.</summary>
-		public static ResourceKey Heading2StyleKey { get; } = new StyleResourceKey(nameof(Heading2StyleKey));
+		internal static ResourceKey Heading2StyleKey { get; } = new StyleResourceKey(nameof(Heading2StyleKey));
 
 		/// <summary>Resource Key for the Heading3Style.</summary>
-		public static ResourceKey Heading3StyleKey { get; } = new StyleResourceKey(nameof(Heading3StyleKey));
+		internal static ResourceKey Heading3StyleKey { get; } = new StyleResourceKey(nameof(Heading3StyleKey));
 
 		/// <summary>Resource Key for the Heading4Style.</summary>
-		public static ResourceKey Heading4StyleKey { get; } = new StyleResourceKey(nameof(Heading4StyleKey));
+		internal static ResourceKey Heading4StyleKey { get; } = new StyleResourceKey(nameof(Heading4StyleKey));
 
 		/// <summary>Resource Key for the Heading5Style.</summary>
-		public static ResourceKey Heading5StyleKey { get; } = new StyleResourceKey(nameof(Heading5StyleKey));
+		internal static ResourceKey Heading5StyleKey { get; } = new StyleResourceKey(nameof(Heading5StyleKey));
 
 		/// <summary>Resource Key for the Heading6Style.</summary>
-		public static ResourceKey Heading6StyleKey { get; } = new StyleResourceKey(nameof(Heading6StyleKey));
+		internal static ResourceKey Heading6StyleKey { get; } = new StyleResourceKey(nameof(Heading6StyleKey));
 
 		/// <summary>Resource Key for the ImageStyle.</summary>
-		public static ResourceKey ImageStyleKey { get; } = new StyleResourceKey(nameof(ImageStyleKey));
+		internal static ResourceKey ImageStyleKey { get; } = new StyleResourceKey(nameof(ImageStyleKey));
 
 		/// <summary>Resource Key for the InsertedStyle.</summary>
-		public static ResourceKey InsertedStyleKey { get; } = new StyleResourceKey(nameof(InsertedStyleKey));
+		internal static ResourceKey InsertedStyleKey { get; } = new StyleResourceKey(nameof(InsertedStyleKey));
 
 		/// <summary>Resource Key for the MarkedStyle.</summary>
-		public static ResourceKey MarkedStyleKey { get; } = new StyleResourceKey(nameof(MarkedStyleKey));
+		internal static ResourceKey MarkedStyleKey { get; } = new StyleResourceKey(nameof(MarkedStyleKey));
 
 		/// <summary>Resource Key for the QuoteBlockStyle.</summary>
-		public static ResourceKey QuoteBlockStyleKey { get; } = new StyleResourceKey(nameof(QuoteBlockStyleKey));
+		internal static ResourceKey QuoteBlockStyleKey { get; } = new StyleResourceKey(nameof(QuoteBlockStyleKey));
 
 		/// <summary>Resource Key for the StrikeThroughStyle.</summary>
-		public static ResourceKey StrikeThroughStyleKey { get; } = new StyleResourceKey(nameof(StrikeThroughStyleKey));
+		internal static ResourceKey StrikeThroughStyleKey { get; } = new StyleResourceKey(nameof(StrikeThroughStyleKey));
+
 		/// <summary>Resource Key for the SubscriptStyle.</summary>
-		public static ResourceKey SubscriptStyleKey { get; } = new StyleResourceKey(nameof(SubscriptStyleKey));
+		internal static ResourceKey SubscriptStyleKey { get; } = new StyleResourceKey(nameof(SubscriptStyleKey));
 
 		/// <summary>Resource Key for the SuperscriptStyle.</summary>
-		public static ResourceKey SuperscriptStyleKey { get; } = new StyleResourceKey(nameof(SuperscriptStyleKey));
+		internal static ResourceKey SuperscriptStyleKey { get; } = new StyleResourceKey(nameof(SuperscriptStyleKey));
 
 		/// <summary>Resource Key for the TableStyle.</summary>
-		public static ResourceKey TableStyleKey { get; } = new StyleResourceKey(nameof(TableStyleKey));
+		internal static ResourceKey TableStyleKey { get; } = new StyleResourceKey(nameof(TableStyleKey));
 
 		/// <summary>Resource Key for the TableCellStyle.</summary>
-		public static ResourceKey TableCellStyleKey { get; } = new StyleResourceKey(nameof(TableCellStyleKey));
+		internal static ResourceKey TableCellStyleKey { get; } = new StyleResourceKey(nameof(TableCellStyleKey));
 
 		/// <summary>Resource Key for the TableHeaderStyle.</summary>
-		public static ResourceKey TableHeaderStyleKey { get; } = new StyleResourceKey(nameof(TableHeaderStyleKey));
+		internal static ResourceKey TableHeaderStyleKey { get; } = new StyleResourceKey(nameof(TableHeaderStyleKey));
 
 		/// <summary>Resource Key for the TaskListStyle.</summary>
-		public static ResourceKey TaskListStyleKey { get; } = new StyleResourceKey(nameof(TaskListStyleKey));
+		internal static ResourceKey TaskListStyleKey { get; } = new StyleResourceKey(nameof(TaskListStyleKey));
 
 		/// <summary>Resource Key for the ThematicBreakStyle.</summary>
-		public static ResourceKey ThematicBreakStyleKey { get; } = new StyleResourceKey(nameof(ThematicBreakStyleKey));
+		internal static ResourceKey ThematicBreakStyleKey { get; } = new StyleResourceKey(nameof(ThematicBreakStyleKey));
 
 		/// <summary></summary>
-		public static ResourceKey HyperlinkStyleKey { get; } = new StyleResourceKey(nameof(HyperlinkStyleKey));
+		internal static ResourceKey HyperlinkStyleKey { get; } = new StyleResourceKey(nameof(HyperlinkStyleKey));
 
 		/// <summary>Routed command for Hyperlink.</summary>
 		public static RoutedCommand Hyperlink { get; } = new RoutedCommand(nameof(Hyperlink), typeof(MarkdownXaml));

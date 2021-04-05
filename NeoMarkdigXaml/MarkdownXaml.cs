@@ -94,7 +94,7 @@ namespace Neo.Markdig.Xaml
 		{
 			if (writer == null)
 				throw new ArgumentNullException(nameof(writer));
-			pipeline = pipeline ?? new MarkdownPipelineBuilder().Build();
+			pipeline ??= new MarkdownPipelineBuilder().Build();
 
 			var renderer = new XamlMarkdownWriter(writer) { BaseUri = baseUri };
 			pipeline.Setup(renderer);
@@ -105,7 +105,8 @@ namespace Neo.Markdig.Xaml
 
 		public static MarkdownPipelineBuilder UseXamlSupportedExtensions(this MarkdownPipelineBuilder pipeline)
 		{
-			if (pipeline == null) throw new ArgumentNullException(nameof(pipeline));
+			if (pipeline == null) 
+				throw new ArgumentNullException(nameof(pipeline));
 			return pipeline
 				.UseEmphasisExtras()
 				.UseGridTables()

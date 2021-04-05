@@ -97,22 +97,22 @@ namespace Neo.Markdig.Xaml.Renderers.Inlines
 				case '_': // italic
 					renderer.WriteStartObject(typeof(Italic));
 					return true;
-				case '~': // strike through
-					renderer.WriteStartObject(typeof(Span));
-					renderer.WriteResourceMember(null, MarkdownXamlStyle.StrikeThrough);
-					return true;
-				case '^': // superscript, subscript
+				case '~': // 1x strike through, 2x subscript
 					renderer.WriteStartObject(typeof(Span));
 					if (span.DelimiterCount == 2)
-						renderer.WriteResourceMember(null, MarkdownXamlStyle.Superscript);
-					else
 						renderer.WriteResourceMember(null, MarkdownXamlStyle.Subscript);
+					else
+						renderer.WriteResourceMember(null, MarkdownXamlStyle.StrikeThrough);
 					return true;
-				case '+': // underline
+				case '^': // 1x superscript
+					renderer.WriteStartObject(typeof(Span));
+					renderer.WriteResourceMember(null, MarkdownXamlStyle.Superscript);
+					return true;
+				case '+': // 2x underline
 					renderer.WriteStartObject(typeof(Span));
 					renderer.WriteResourceMember(null, MarkdownXamlStyle.Inserted);
 					return true;
-				case '=': // Marked
+				case '=': // 2x Marked
 					renderer.WriteStartObject(typeof(Span));
 					renderer.WriteResourceMember(null, MarkdownXamlStyle.Marked);
 					return true;

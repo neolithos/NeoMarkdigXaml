@@ -94,7 +94,7 @@ namespace Neo.Markdig.Xaml
 		{
 			if (writer == null)
 				throw new ArgumentNullException(nameof(writer));
-			pipeline ??= new MarkdownPipelineBuilder().Build();
+			pipeline = pipeline ?? new MarkdownPipelineBuilder().Build();
 
 			var renderer = new XamlMarkdownWriter(writer) { BaseUri = baseUri };
 			pipeline.Setup(renderer);

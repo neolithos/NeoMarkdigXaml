@@ -18,6 +18,7 @@
 // under the License.
 //
 #endregion
+using System.ComponentModel;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
@@ -98,70 +99,92 @@ namespace Neo.Markdig.Xaml
 		#endregion
 
 		/// <summary>Resource Key for the DocumentStyle.</summary>
-		internal static ResourceKey DocumentStyleKey { get; } = new StyleResourceKey(nameof(DocumentStyleKey));
+		[EditorBrowsable(EditorBrowsableState.Advanced)]
+		public static ResourceKey DocumentStyleKey { get; } = new StyleResourceKey(nameof(DocumentStyleKey));
 
 		/// <summary>Resource Key for the CodeStyle.</summary>
-		internal static ResourceKey CodeStyleKey { get; } = new StyleResourceKey(nameof(CodeStyleKey));
+		[EditorBrowsable(EditorBrowsableState.Advanced)]
+		public static ResourceKey CodeStyleKey { get; } = new StyleResourceKey(nameof(CodeStyleKey));
 
 		/// <summary>Resource Key for the CodeBlockStyle.</summary>
-		internal static ResourceKey CodeBlockStyleKey { get; } = new StyleResourceKey(nameof(CodeBlockStyleKey));
+		[EditorBrowsable(EditorBrowsableState.Advanced)]
+		public static ResourceKey CodeBlockStyleKey { get; } = new StyleResourceKey(nameof(CodeBlockStyleKey));
 
 		/// <summary>Resource Key for the Heading1Style.</summary>
-		internal static ResourceKey Heading1StyleKey { get; } = new StyleResourceKey(nameof(Heading1StyleKey));
+		[EditorBrowsable(EditorBrowsableState.Advanced)]
+		public static ResourceKey Heading1StyleKey { get; } = new StyleResourceKey(nameof(Heading1StyleKey));
 
 		/// <summary>Resource Key for the Heading2Style.</summary>
-		internal static ResourceKey Heading2StyleKey { get; } = new StyleResourceKey(nameof(Heading2StyleKey));
+		[EditorBrowsable(EditorBrowsableState.Advanced)]
+		public static ResourceKey Heading2StyleKey { get; } = new StyleResourceKey(nameof(Heading2StyleKey));
 
 		/// <summary>Resource Key for the Heading3Style.</summary>
-		internal static ResourceKey Heading3StyleKey { get; } = new StyleResourceKey(nameof(Heading3StyleKey));
+		[EditorBrowsable(EditorBrowsableState.Advanced)]
+		public static ResourceKey Heading3StyleKey { get; } = new StyleResourceKey(nameof(Heading3StyleKey));
 
 		/// <summary>Resource Key for the Heading4Style.</summary>
-		internal static ResourceKey Heading4StyleKey { get; } = new StyleResourceKey(nameof(Heading4StyleKey));
+		[EditorBrowsable(EditorBrowsableState.Advanced)]
+		public static ResourceKey Heading4StyleKey { get; } = new StyleResourceKey(nameof(Heading4StyleKey));
 
 		/// <summary>Resource Key for the Heading5Style.</summary>
-		internal static ResourceKey Heading5StyleKey { get; } = new StyleResourceKey(nameof(Heading5StyleKey));
+		[EditorBrowsable(EditorBrowsableState.Advanced)]
+		public static ResourceKey Heading5StyleKey { get; } = new StyleResourceKey(nameof(Heading5StyleKey));
 
 		/// <summary>Resource Key for the Heading6Style.</summary>
-		internal static ResourceKey Heading6StyleKey { get; } = new StyleResourceKey(nameof(Heading6StyleKey));
+		[EditorBrowsable(EditorBrowsableState.Advanced)]
+		public static ResourceKey Heading6StyleKey { get; } = new StyleResourceKey(nameof(Heading6StyleKey));
 
 		/// <summary>Resource Key for the ImageStyle.</summary>
-		internal static ResourceKey ImageStyleKey { get; } = new StyleResourceKey(nameof(ImageStyleKey));
+		[EditorBrowsable(EditorBrowsableState.Advanced)]
+		public static ResourceKey ImageStyleKey { get; } = new StyleResourceKey(nameof(ImageStyleKey));
 
 		/// <summary>Resource Key for the InsertedStyle.</summary>
-		internal static ResourceKey InsertedStyleKey { get; } = new StyleResourceKey(nameof(InsertedStyleKey));
+		[EditorBrowsable(EditorBrowsableState.Advanced)]
+		public static ResourceKey InsertedStyleKey { get; } = new StyleResourceKey(nameof(InsertedStyleKey));
 
 		/// <summary>Resource Key for the MarkedStyle.</summary>
-		internal static ResourceKey MarkedStyleKey { get; } = new StyleResourceKey(nameof(MarkedStyleKey));
+		[EditorBrowsable(EditorBrowsableState.Advanced)]
+		public static ResourceKey MarkedStyleKey { get; } = new StyleResourceKey(nameof(MarkedStyleKey));
 
 		/// <summary>Resource Key for the QuoteBlockStyle.</summary>
-		internal static ResourceKey QuoteBlockStyleKey { get; } = new StyleResourceKey(nameof(QuoteBlockStyleKey));
+		[EditorBrowsable(EditorBrowsableState.Advanced)]
+		public static ResourceKey QuoteBlockStyleKey { get; } = new StyleResourceKey(nameof(QuoteBlockStyleKey));
 
 		/// <summary>Resource Key for the StrikeThroughStyle.</summary>
-		internal static ResourceKey StrikeThroughStyleKey { get; } = new StyleResourceKey(nameof(StrikeThroughStyleKey));
+		[EditorBrowsable(EditorBrowsableState.Advanced)]
+		public static ResourceKey StrikeThroughStyleKey { get; } = new StyleResourceKey(nameof(StrikeThroughStyleKey));
 
 		/// <summary>Resource Key for the SubscriptStyle.</summary>
-		internal static ResourceKey SubscriptStyleKey { get; } = new StyleResourceKey(nameof(SubscriptStyleKey));
+		[EditorBrowsable(EditorBrowsableState.Advanced)]
+		public static ResourceKey SubscriptStyleKey { get; } = new StyleResourceKey(nameof(SubscriptStyleKey));
 
 		/// <summary>Resource Key for the SuperscriptStyle.</summary>
-		internal static ResourceKey SuperscriptStyleKey { get; } = new StyleResourceKey(nameof(SuperscriptStyleKey));
+		[EditorBrowsable(EditorBrowsableState.Advanced)]
+		public static ResourceKey SuperscriptStyleKey { get; } = new StyleResourceKey(nameof(SuperscriptStyleKey));
 
 		/// <summary>Resource Key for the TableStyle.</summary>
-		internal static ResourceKey TableStyleKey { get; } = new StyleResourceKey(nameof(TableStyleKey));
+		[EditorBrowsable(EditorBrowsableState.Advanced)]
+		public static ResourceKey TableStyleKey { get; } = new StyleResourceKey(nameof(TableStyleKey));
 
 		/// <summary>Resource Key for the TableCellStyle.</summary>
-		internal static ResourceKey TableCellStyleKey { get; } = new StyleResourceKey(nameof(TableCellStyleKey));
+		[EditorBrowsable(EditorBrowsableState.Advanced)]
+		public static ResourceKey TableCellStyleKey { get; } = new StyleResourceKey(nameof(TableCellStyleKey));
 
 		/// <summary>Resource Key for the TableHeaderStyle.</summary>
-		internal static ResourceKey TableHeaderStyleKey { get; } = new StyleResourceKey(nameof(TableHeaderStyleKey));
+		[EditorBrowsable(EditorBrowsableState.Advanced)]
+		public static ResourceKey TableHeaderStyleKey { get; } = new StyleResourceKey(nameof(TableHeaderStyleKey));
 
 		/// <summary>Resource Key for the TaskListStyle.</summary>
-		internal static ResourceKey TaskListStyleKey { get; } = new StyleResourceKey(nameof(TaskListStyleKey));
+		[EditorBrowsable(EditorBrowsableState.Advanced)]
+		public static ResourceKey TaskListStyleKey { get; } = new StyleResourceKey(nameof(TaskListStyleKey));
 
 		/// <summary>Resource Key for the ThematicBreakStyle.</summary>
-		internal static ResourceKey ThematicBreakStyleKey { get; } = new StyleResourceKey(nameof(ThematicBreakStyleKey));
+		[EditorBrowsable(EditorBrowsableState.Advanced)]
+		public static ResourceKey ThematicBreakStyleKey { get; } = new StyleResourceKey(nameof(ThematicBreakStyleKey));
 
 		/// <summary></summary>
-		internal static ResourceKey HyperlinkStyleKey { get; } = new StyleResourceKey(nameof(HyperlinkStyleKey));
+		[EditorBrowsable(EditorBrowsableState.Advanced)]
+		public static ResourceKey HyperlinkStyleKey { get; } = new StyleResourceKey(nameof(HyperlinkStyleKey));
 
 		/// <summary>Routed command for Hyperlink.</summary>
 		public static RoutedCommand Hyperlink { get; } = new RoutedCommand(nameof(Hyperlink), typeof(MarkdownXaml));

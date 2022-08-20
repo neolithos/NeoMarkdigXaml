@@ -91,6 +91,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="Test\Issue-9.md" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

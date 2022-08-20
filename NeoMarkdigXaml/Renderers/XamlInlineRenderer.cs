@@ -142,42 +142,49 @@ namespace Neo.Markdig.Xaml.Renderers.Inlines
 		protected override void Write(XamlMarkdownWriter renderer, HtmlEntityInline obj)
 		{
 			var txt = obj.Transcoded.Text.Substring(obj.Transcoded.Start, obj.Transcoded.Length);
-			using (var xaml = new XamlXmlReader(new StringReader(txt), new XamlXmlReaderSettings() { }))
+			if (txt.Length == 0)
+				return;
+			if (txt[0] == '<')
 			{
-				while (xaml.Read())
+				using (var xaml = new XamlXmlReader(new StringReader(txt), new XamlXmlReaderSettings() { }))
 				{
-					switch (xaml.NodeType)
+					while (xaml.Read())
 					{
-						case XamlNodeType.NamespaceDeclaration:
-							renderer.WriteNamespace(xaml.Namespace);
-							break;
-						case XamlNodeType.StartObject:
-							renderer.WriteStartObject(xaml.Type);
-							break;
-						case XamlNodeType.GetObject:
-							renderer.WriteGetObject();
-							break;
-						case XamlNodeType.EndObject:
-							renderer.WriteEndObject();
-							break;
+						switch (xaml.NodeType)
+						{
+							case XamlNodeType.NamespaceDeclaration:
+								renderer.WriteNamespace(xaml.Namespace);
+								break;
+							case XamlNodeType.StartObject:
+								renderer.WriteStartObject(xaml.Type);
+								break;
+							case XamlNodeType.GetObject:
+								renderer.WriteGetObject();
+								break;
+							case XamlNodeType.EndObject:
+								renderer.WriteEndObject();
+								break;
 
-						case XamlNodeType.StartMember:
-							renderer.WriteStartMember(xaml.Member);
-							break;
-						case XamlNodeType.EndMember:
-							renderer.WriteEndMember();
-							break;
-						case XamlNodeType.Value:
-							if (xaml.Value is string text)
-								renderer.WriteValue(text);
-							else
-								renderer.WriteValue(xaml.Value.ToString()); // todo: use xaml to text converter
-							break;
-						default:
-							throw new InvalidOperationException();
+							case XamlNodeType.StartMember:
+								renderer.WriteStartMember(xaml.Member);
+								break;
+							case XamlNodeType.EndMember:
+								renderer.WriteEndMember();
+								break;
+							case XamlNodeType.Value:
+								if (xaml.Value is string text)
+									renderer.WriteValue(text);
+								else
+									renderer.WriteValue(xaml.Value.ToString()); // todo: use xaml to text converter
+								break;
+							default:
+								throw new InvalidOperationException();
+						}
 					}
 				}
 			}
+			else
+				renderer.WriteText(txt);
 		} // proc Write
 	} // class EntityInlineRenderer
 

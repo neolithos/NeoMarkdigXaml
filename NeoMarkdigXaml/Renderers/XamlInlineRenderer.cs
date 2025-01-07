@@ -249,7 +249,7 @@ namespace Neo.Markdig.Xaml.Renderers.Inlines
 				url = "#";
 
 			renderer.WriteStartObject(typeof(Hyperlink));
-			renderer.WriteResourceMember(null, MarkdownXaml.HyperlinkStyleKey);
+			renderer.WriteResourceMember(null, MarkdownXamlStyle.Hyperlink);
 			//renderer.WriteMember(Hyperlink.CommandProperty, Commands.Hyperlink);
 			//renderer.WriteMember(Hyperlink.CommandParameterProperty, url);
 			renderer.WriteMember(Hyperlink.NavigateUriProperty, renderer.GetUri(new Uri(url, UriKind.RelativeOrAbsolute)));
